@@ -13,7 +13,7 @@ let inputController;
 
 let loaderImageBase;
 let loaderImageApplegrape;
-var loaderImage;
+let loaderImage;
 
 let loaderSound;
 

@@ -16,10 +16,19 @@ class ScreenGame {
         this._renderersAsteroidsRU = [ASTEROIDS_NUMBER];
         this._renderersAsteroidsRD = [ASTEROIDS_NUMBER];
 
+        this._gameCompleteCount = 1000 * 3 / UPDATE_PERIOD_MILLS;
+
         this.initRenderers();
     }
 
     update() {
+        if (this._game.isRunning)
+            this._updateRunningGame();
+        else
+            this._updateCompletedGame();
+    }
+
+    _updateRunningGame() {
         this._game.update();
         this._rendererScore.update(this._game);
 
@@ -34,6 +43,20 @@ class ScreenGame {
             this._renderersAsteroidsRU[i].active = this._game.asteroidsRU[i];
             this._renderersAsteroidsRD[i].active = this._game.asteroidsRD[i];
         }
+    }
+
+    _updateCompletedGame() {
+        if (this._gameCompleteCount % 3 == 0) {
+            this._rendererScore.active = !this._rendererScore.active;
+
+            if (this._rendererScore._active)
+                loaderSound.buttonBeep.play();
+        }
+
+        this._gameCompleteCount--;
+
+        if (this._gameCompleteCount < 0)
+            this._doShowMenu();
     }
 
     render() {

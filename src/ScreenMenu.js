@@ -2,8 +2,6 @@ class ScreenMenu {
     constructor(doStartGame = () => {}) {
         this._baseImageSet = (loaderImage == loaderImageBase);
 
-        this._sndButtonBeep = loaderSound.buttonBeep;
-
         this._doStartGame = doStartGame;
 
         this.initRenderers();
@@ -32,7 +30,7 @@ class ScreenMenu {
 
     _processMouseClick(clickPos) {
         if (checkBounds(clickPos, this._rendererBtnStart.x, this._rendererBtnStart.y, this._rendererBtnStart.img.width, this._rendererBtnStart.img.height)) {
-            this._sndButtonBeep.play();
+            loaderSound.buttonBeep.play();
             this._doStartGame();
         }
 

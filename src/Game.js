@@ -149,6 +149,10 @@ class Game {
         loaderSound.explosion.play();
     }
 
+    get isRunning() {
+        return this._isRunning;
+    }
+
     get score() {
         return this._score;
     }
