@@ -30,7 +30,7 @@ class ScreenMenu {
 
     _processMouseClick(clickPos) {
         if (checkBounds(clickPos, this._rendererBtnStart.x, this._rendererBtnStart.y, this._rendererBtnStart.img.width, this._rendererBtnStart.img.height)) {
-            loaderSound.buttonBeep.play();
+            loaderSound.buttonBeepPlay();
             this._doStartGame();
         }
 

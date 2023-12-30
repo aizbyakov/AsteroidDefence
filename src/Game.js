@@ -1,24 +1,23 @@
 const ASTEROIDS_NUMBER = 5;
 
-const CREATE_ASTEROID_SPAN = 5;
-const CREATE_ASTEROID_PROBABILITY = 0.2;
+const CREATE_ASTEROID_SPAN_MAX = 3;
+const CREATE_ASTEROID_PROBABILITY_MIN = 0.1;
 
-const GAME_INIT_SPEED_DELTA = 1;
-
-const SPEED_INCREASE_SCORE_1 = 10
-const SPEED_INCREASE_SCORE_2 = 50;
-const SPEED_INCREASE_SCORE_3 = 100;
-const SPEED_INCREASE_SCORE_4 = 200;
-const SPEED_INCREASE_SCORE_5 = 500;
+const COMPLEXITY_INCREASE_SCORE_1 = 10
+const COMPLEXITY_INCREASE_SCORE_2 = 50;
+const COMPLEXITY_INCREASE_SCORE_3 = 250;
+const COMPLEXITY_INCREASE_SCORE_4 = 500;
+const COMPLEXITY_INCREASE_SCORE_5 = 1000;
 
 
 class Game {
     constructor(updatesPerSec) {
         this._isRunning = true;
-        this._gameSpeed = updatesPerSec;
-        this._gameSpeedCount = 0;
-
         this._score = 0;
+
+        this._baseGameSpeed = updatesPerSec / 1.5;
+        this._gameSpeedCount = 0;
+        this._increaseGameComplexity();
 
         this._shieldLD = false;
         this._shieldLU = false;
@@ -37,8 +36,8 @@ class Game {
             this._asteroidsRD[i] = false;
         }
 
-        this._createAsteroidCount = CREATE_ASTEROID_SPAN;
-        this._createAsteroidProbability = CREATE_ASTEROID_PROBABILITY;
+        this._createAsteroidCount = 0;
+        this._createAsteroidProbability = CREATE_ASTEROID_PROBABILITY_MIN;
         this._scoreSpeedIncrease = 0;
     }
 
@@ -55,7 +54,7 @@ class Game {
 
         this._gameSpeedCount = 0;
 
-        loaderSound.radarBeep.play();
+        loaderSound.radarBeepPlay();
 
         if (this._checkIfAsteroidHit()) {
             this.endGame();
@@ -63,7 +62,7 @@ class Game {
         }
 
         if (this._checkIfAsteroidRejected()) {
-            loaderSound.rejected.play();
+            loaderSound.rejectedPlay();
             this._score++;
         }
 
@@ -79,7 +78,7 @@ class Game {
 
         if (this._createAsteroidCount < 0 || createRandomAsteroid) {
             if (!createRandomAsteroid)
-                this._createAsteroidCount = CREATE_ASTEROID_SPAN;
+                this._createAsteroidCount = CREATE_ASTEROID_SPAN_MAX;
 
             let asteroids = [];
             asteroids.push(this._asteroidsLD);
@@ -92,15 +91,24 @@ class Game {
     }
 
     _increaseGameComplexity() {
-        if (
-            (this._score > SPEED_INCREASE_SCORE_1 && this._scoreSpeedIncrease < SPEED_INCREASE_SCORE_1) ||
-            (this._score > SPEED_INCREASE_SCORE_2 && this._scoreSpeedIncrease < SPEED_INCREASE_SCORE_2) ||
-            (this._score > SPEED_INCREASE_SCORE_3 && this._scoreSpeedIncrease < SPEED_INCREASE_SCORE_3) ||
-            (this._score > SPEED_INCREASE_SCORE_4 && this._scoreSpeedIncrease < SPEED_INCREASE_SCORE_4) ||
-            (this._score > SPEED_INCREASE_SCORE_5 && this._scoreSpeedIncrease < SPEED_INCREASE_SCORE_5)
-        ) {
-            this._scoreSpeedIncrease = this._score;
-            this._gameSpeed = this._gameSpeed - GAME_INIT_SPEED_DELTA;
+        if (this._score < COMPLEXITY_INCREASE_SCORE_1) {
+            this._gameSpeed = this._baseGameSpeed - (this._baseGameSpeed * 0.1);
+            this._createAsteroidProbability = CREATE_ASTEROID_PROBABILITY_MIN * 1;
+        } else if (this._score >= COMPLEXITY_INCREASE_SCORE_1 && this._score < COMPLEXITY_INCREASE_SCORE_2) {
+            this._gameSpeed = this._baseGameSpeed - (this._baseGameSpeed * 0.2);
+            this._createAsteroidProbability = CREATE_ASTEROID_PROBABILITY_MIN * 3  ;
+        } else if (this._score >= COMPLEXITY_INCREASE_SCORE_2 && this._score < COMPLEXITY_INCREASE_SCORE_3) {
+            this._gameSpeed = this._baseGameSpeed - (this._baseGameSpeed * 0.3);
+            this._createAsteroidProbability = CREATE_ASTEROID_PROBABILITY_MIN * 5 ;
+        } else if (this._score >= COMPLEXITY_INCREASE_SCORE_3 && this._score < COMPLEXITY_INCREASE_SCORE_4) {
+            this._gameSpeed = this._baseGameSpeed - (this._baseGameSpeed * 0.4);
+            this._createAsteroidProbability = CREATE_ASTEROID_PROBABILITY_MIN * 7;
+        } else if (this._score >= COMPLEXITY_INCREASE_SCORE_4 && this._score < COMPLEXITY_INCREASE_SCORE_5) {
+            this._gameSpeed = this._baseGameSpeed - (this._baseGameSpeed * 0.5);
+            this._createAsteroidProbability = CREATE_ASTEROID_PROBABILITY_MIN * 9;
+        } else {
+            this._gameSpeed = this._baseGameSpeed - (this._baseGameSpeed * 0.6);
+            this._createAsteroidProbability = CREATE_ASTEROID_PROBABILITY_MIN * 10;
         }
     }
 
@@ -146,7 +154,7 @@ class Game {
     endGame() {
         this._isRunning = false;
 
-        loaderSound.explosion.play();
+        loaderSound.explosionPlay();
     }
 
     get isRunning() {

@@ -35,7 +35,10 @@ function preload() {
     loaderImage = loaderImageBase;
 
     loaderSound = new LoaderSound();
-    loaderSound.load();
+    /**
+     * Doesn't work in chrome and it looks like it requires another way to load sound because of aoudio policies
+     */
+    // loaderSound.load();
 }
 
 function setup() {

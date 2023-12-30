@@ -50,7 +50,7 @@ class ScreenGame {
             this._rendererScore.active = !this._rendererScore.active;
 
             if (this._rendererScore._active)
-                loaderSound.buttonBeep.play();
+                loaderSound.buttonBeepPlay();
         }
 
         this._gameCompleteCount--;

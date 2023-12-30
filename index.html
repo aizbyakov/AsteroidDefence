@@ -2,18 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <title>Sketch</title>
 
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css"/>
 
+  
     <script src="libraries/p5.min.js"></script>
-    <script src="libraries/p5.sound.min.js"></script>
-  </head>
-
-  <body>
-    <script src="sketch.js"></script>
+    <!-- Doesn't work in chrome and it looks like it requires another way to load sound because of aoudio policies -->
+    <!-- <script src="libraries/p5.sound.min.js"></script> -->
 
     <script src="src/InputController.js"></script>
     <script src="src/LoaderImageBase.js"></script>
@@ -26,7 +24,12 @@
     <script src="src/Helpers.js"></script>
 
     <script src="src/Game.js"></script>
-    <script src="src/ScreenMenu.js"></script>
     <script src="src/ScreenGame.js"></script>
-  </body>
+    <script src="src/ScreenMenu.js"></script>
+
+    <script src="sketch.js"></script>
+
+  </head>
+
+  <body/>
 </html>
