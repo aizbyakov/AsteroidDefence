@@ -31,10 +31,13 @@ class ScreenMenu {
     _processMouseClick(clickPos) {
         if (checkBounds(clickPos, this._rendererBtnStart.x, this._rendererBtnStart.y, this._rendererBtnStart.img.width, this._rendererBtnStart.img.height)) {
             loaderSound.buttonBeepPlay();
+
             this._doStartGame();
         }
 
         if (checkBounds(clickPos, 0, 0, this._rendererBaseImageSet.img.width, this._rendererBaseImageSet.img.height)) {
+            loaderSound.buttonBeepPlay();
+
             this._baseImageSet = !this._baseImageSet;
             loaderImage = (this._baseImageSet ? loaderImageBase : loaderImageApplegrape);
 

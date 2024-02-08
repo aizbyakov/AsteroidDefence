@@ -4,10 +4,10 @@ class LoaderSound {
     }
 
     load() {
-        this._buttonBeep = loadSound('assets/sound/base/button_beep.wav');
-        this._rejected = loadSound('assets/sound/base/rejected.mp3');
-        this._radarBeep = loadSound('assets/sound/base/radar_beep.mp3');
-        this._explosion = loadSound('assets/sound/base/explosion.wav');
+        this._buttonBeep = new Audio('assets/sound/base/button_beep.wav');
+        this._rejected = new Audio('assets/sound/base/rejected.mp3');
+        this._radarBeep = new Audio('assets/sound/base/radar_beep.mp3');
+        this._explosion = new Audio('assets/sound/base/explosion.wav');
 
         this._loaded = true;
     }
