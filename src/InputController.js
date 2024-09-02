@@ -1,10 +1,16 @@
-const SHIELD_LD = 65;
-const SHIELD_LU = 81;
-const SHIELD_RU = 80;
-const SHIELD_RD = 76;
+const START_GAME = 69 //E
+const CHANGE_GRAPHICS = 71 //G
+
+const SHIELD_LD = 65; //A
+const SHIELD_LU = 81; //Q
+const SHIELD_RU = 80; //P
+const SHIELD_RD = 76; //L
 
 class InputController {
     constructor() {
+        this._startGame = false;
+        this._changeGraphics = false;
+
         this._LD = false;
         this._LU = false;
         this._RU = false;
@@ -16,6 +22,9 @@ class InputController {
     }
 
     processInput() {
+        this._startGame = keyIsDown(START_GAME);
+        this._changeGraphics = keyIsDown(CHANGE_GRAPHICS);
+        
         let newLastUsed = keyCode;
 
         if (newLastUsed == SHIELD_LD || newLastUsed == SHIELD_LU || newLastUsed == SHIELD_RU || newLastUsed == SHIELD_RD) {
@@ -39,6 +48,14 @@ class InputController {
         } else {
             this._clickPosition = null;
         }
+    }
+
+    get startGame() {
+        return this._startGame;
+    }
+
+    get changeGraphics() {
+        return this._changeGraphics;
     }
 
     get LD() {

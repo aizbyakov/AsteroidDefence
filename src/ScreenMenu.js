@@ -8,6 +8,8 @@ class ScreenMenu {
 
         this._isClick = false;
         this._isClickPrev = false;
+        this._isButtonPressed = false;
+        this._isButtonPressedPrev = false;
     }
 
     update() {
@@ -24,8 +26,37 @@ class ScreenMenu {
             this._isClick = false;
         }
 
+
+        let btnPressed = (inputController.startGame || inputController.changeGraphics);
+        
+        this._isButtonPressedPrev = this._isButtonPressed;
+        
+        if (btnPressed) {
+            this._isButtonPressed = true;
+
+            if (this._isButtonPressed != this._isButtonPressedPrev) {
+                this._processButtonPress(inputController.startGame, inputController.changeGraphics);
+            }
+        } else {
+            this._isButtonPressed = false;
+        }
+
+
         this._rendererBaseImageSet.active = !this._baseImageSet;
         this._rendererApplegrapeImageSet.active = this._baseImageSet;
+    }
+
+    _processButtonPress(startGame, changeGraphics) {
+        if (startGame) {
+            loaderSound.buttonBeepPlay();
+            this._doStartGame();
+        }
+
+        if (changeGraphics) {
+            loaderSound.buttonBeepPlay();
+
+            this._doChangeGraphics();
+        }
     }
 
     _processMouseClick(clickPos) {
@@ -38,11 +69,15 @@ class ScreenMenu {
         if (checkBounds(clickPos, 0, 0, this._rendererBaseImageSet.img.width, this._rendererBaseImageSet.img.height)) {
             loaderSound.buttonBeepPlay();
 
-            this._baseImageSet = !this._baseImageSet;
-            loaderImage = (this._baseImageSet ? loaderImageBase : loaderImageApplegrape);
-
-            this.initRenderers();
+            this._doChangeGraphics();
         }
+    }
+
+    _doChangeGraphics() {
+        this._baseImageSet = !this._baseImageSet;
+        loaderImage = (this._baseImageSet ? loaderImageBase : loaderImageApplegrape);
+
+        this.initRenderers();
     }
 
     render() {
