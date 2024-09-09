@@ -4,12 +4,17 @@ class ScreenGame {
 
         this._game = new Game(updatesPerSec);
 
-        this._rendererShip = true;
+        this._rendererShip = null;
 
-        this._rendererShieldLD = true;
-        this._rendererShieldLU = true;
-        this._rendererShieldRU = true;
-        this._rendererShieldRD = true;
+        this._rendererShieldLD = null;
+        this._rendererShieldLU = null;
+        this._rendererShieldRU = null;
+        this._rendererShieldRD = null;
+
+        this._rendererButtonLD = null;
+        this._rendererButtonLU = null;
+        this._rendererButtonRU = null;
+        this._rendererButtonRD = null;
 
         this._renderersAsteroidsLD = [ASTEROIDS_NUMBER];
         this._renderersAsteroidsLU = [ASTEROIDS_NUMBER];
@@ -69,6 +74,11 @@ class ScreenGame {
         this._rendererShieldRU.render();
         this._rendererShieldRD.render();
 
+        this._rendererButtonLU.render();
+        this._rendererButtonLD.render();
+        this._rendererButtonRU.render();
+        this._rendererButtonRD.render();
+
         for (let i = 0; i < ASTEROIDS_NUMBER; i++) {
             this._renderersAsteroidsLD[i].render();
             this._renderersAsteroidsLU[i].render();
@@ -87,6 +97,7 @@ class ScreenGame {
         let imgY = height - loaderImage.ship.height;
         this._rendererShip = new RendererImage(imgX, imgY, loaderImage.ship, true);
 
+
         imgX = this._rendererShip.x - loaderImage.shieldLD.width;
         imgY = this._rendererShip.y - (loaderImage.shieldLD.height / 2);
         this._rendererShieldLD = new RendererImage(imgX, imgY, loaderImage.shieldLD, true);
@@ -102,6 +113,23 @@ class ScreenGame {
         imgX = this._rendererShip.x + this._rendererShip.img.width;
         imgY = this._rendererShip.y - (loaderImage.shieldRD.height / 2);
         this._rendererShieldRD = new RendererImage(imgX, imgY, loaderImage.shieldRD, true);
+
+
+        imgX = (loaderImage.buttonLD.width / 2);
+        imgY = height - loaderImage.buttonLD.height - (loaderImage.buttonLD.height / 2);
+        this._rendererButtonLD = new RendererImage(imgX, imgY, loaderImage.buttonLD, true);
+
+        imgX = (loaderImage.buttonLU.width / 2);
+        imgY = this._rendererButtonLD.y - loaderImage.buttonLU.height - (loaderImage.buttonLU.height / 2);
+        this._rendererButtonLU = new RendererImage(imgX, imgY, loaderImage.buttonLU, true);
+
+        imgX = width - loaderImage.buttonRD.width - (loaderImage.buttonRD.width / 2);
+        imgY = height - loaderImage.buttonRD.height - (loaderImage.buttonRD.height / 2);
+        this._rendererButtonRD = new RendererImage(imgX, imgY, loaderImage.buttonRD, true);
+
+        imgX = width - loaderImage.buttonRU.width - (loaderImage.buttonRU.width / 2);
+        imgY = this._rendererButtonRD.y - loaderImage.buttonRU.height - (loaderImage.buttonRU.height / 2);
+        this._rendererButtonRU = new RendererImage(imgX, imgY, loaderImage.buttonRU, true);
 
 
         imgX = this._rendererShieldLD.x - loaderImage.asteroid5.width;
