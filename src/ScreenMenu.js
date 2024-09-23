@@ -4,7 +4,9 @@ class ScreenMenu {
 
         this._doStartGame = doStartGame;
 
-        this.initRenderers();
+        this._doChangeGraphics();
+
+        this._initInputController();
 
         this._isClick = false;
         this._isClickPrev = false;
@@ -13,20 +15,6 @@ class ScreenMenu {
     }
 
     update() {
-        let clickPos = inputController.clickPosition;
-
-        this._isClickPrev = this._isClick;
-
-        if (clickPos != null) {
-            this._isClick = true;
-
-            if (this._isClick != this._isClickPrev)
-                this._processMouseClick(clickPos);
-        } else {
-            this._isClick = false;
-        }
-
-
         let btnPressed = (inputController.startGame || inputController.changeGraphics);
         
         this._isButtonPressedPrev = this._isButtonPressed;
@@ -46,6 +34,15 @@ class ScreenMenu {
         this._rendererApplegrapeImageSet.active = this._baseImageSet;
     }
 
+    _initInputController() {
+        inputController.buttonStartGameRect = this._rendererBtnStart;
+        inputController.buttonChangeGraphicsRect = this._rendererBaseImageSet;
+        inputController.buttonLDRect = null;
+        inputController.buttonLURect = null;
+        inputController.buttonRURect = null;
+        inputController.buttonRDRect = null;
+    }
+
     _processButtonPress(startGame, changeGraphics) {
         if (startGame) {
             loaderSound.buttonBeepPlay();
@@ -59,25 +56,11 @@ class ScreenMenu {
         }
     }
 
-    _processMouseClick(clickPos) {
-        if (checkBounds(clickPos, this._rendererBtnStart.x, this._rendererBtnStart.y, this._rendererBtnStart.img.width, this._rendererBtnStart.img.height)) {
-            loaderSound.buttonBeepPlay();
-
-            this._doStartGame();
-        }
-
-        if (checkBounds(clickPos, 0, 0, this._rendererBaseImageSet.img.width, this._rendererBaseImageSet.img.height)) {
-            loaderSound.buttonBeepPlay();
-
-            this._doChangeGraphics();
-        }
-    }
-
     _doChangeGraphics() {
         this._baseImageSet = !this._baseImageSet;
         loaderImage = (this._baseImageSet ? loaderImageBase : loaderImageApplegrape);
 
-        this.initRenderers();
+        this._initRenderers();
     }
 
     render() {
@@ -87,7 +70,7 @@ class ScreenMenu {
         this._rendererBtnStart.render();
     }
 
-    initRenderers() {
+    _initRenderers() {
         this._rendererBackground = new RendererImage(0, 0, loaderImage.menuBackground, true);
 
         let btnX = (this._rendererBackground.img.width / 2) - (loaderImage.btnEngage.width / 2);

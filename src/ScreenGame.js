@@ -23,7 +23,9 @@ class ScreenGame {
 
         this._gameCompleteCount = 1000 * 3 / UPDATE_PERIOD_MILLS;
 
-        this.initRenderers();
+        this._initRenderers();
+
+        this._initInputController();
     }
 
     update() {
@@ -31,6 +33,16 @@ class ScreenGame {
             this._updateRunningGame();
         else
             this._updateCompletedGame();
+    }
+
+    _initInputController() {
+        inputController.buttonStartGameRect = null;
+        inputController.buttonChangeGraphicsRect = null;
+        
+        inputController.buttonLDRect = this._rendererButtonLD;
+        inputController.buttonLURect = this._rendererButtonLU;
+        inputController.buttonRURect = this._rendererButtonRU;
+        inputController.buttonRDRect = this._rendererButtonRD;
     }
 
     _updateRunningGame() {
@@ -89,7 +101,7 @@ class ScreenGame {
         this._rendererScore.render();
     }
 
-    initRenderers() {
+    _initRenderers() {
         this._rendererBackground = new RendererImage(0, 0, loaderImage.space, true);
         this._rendererScore = new RendererScore(true);
 
