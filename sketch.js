@@ -23,6 +23,9 @@ let rendererScore;
 let screen;
 let screenUpdatePassCount = 0;
 
+let topScore = null;
+let lastScore = null;
+
 
 function preload() {
     inputController = new InputController();

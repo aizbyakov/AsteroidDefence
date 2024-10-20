@@ -72,8 +72,18 @@ class ScreenGame {
 
         this._gameCompleteCount--;
 
-        if (this._gameCompleteCount < 0)
+        if (this._gameCompleteCount < 0) {
+            this._updateScoreStat();
+
             this._doShowMenu();
+        }
+    }
+
+    _updateScoreStat() {
+        lastScore = this._game.score;
+     
+        if (topScore == null || topScore < lastScore)
+            topScore = lastScore;
     }
 
     render() {

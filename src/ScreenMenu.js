@@ -63,6 +63,7 @@ class ScreenMenu {
         this._rendererBackground.render();
         this._rendererImageSet.render();
         this._rendererBtnStart.render();
+        this._TOR.render();
     }
 
     _initRenderers() {
@@ -74,5 +75,7 @@ class ScreenMenu {
         this._rendererBtnStart = new RendererImage(btnX, btnY, loaderImage.btnEngage, true);
 
         this._rendererImageSet = new RendererImage(0, 0, (loaderImage == loaderImageBase ? loaderImageApplegrape : loaderImageBase).ship, true);
+        
+        this._TOR = new RendererTOR(width - 150, height - 200, true);
     }
 }

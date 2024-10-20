@@ -33,16 +33,6 @@ class RendererImage {
     }
 
     isCoodsWithin(x, y) {
-
-        console.log("x= " + x);
-        console.log("y= " + y);
-
-        console.log("this.x= " + this.x);
-        console.log("this.y= " + this.y);
-
-        console.log("w= " + (this.x + this._img.width));
-        console.log("h= " + (this.y + this._img.height));
-
         return (x > this._x) && (x < (this._x + this._img.width))
             && (y > this._y) && (y < (this._y + this._img.height))
     }
