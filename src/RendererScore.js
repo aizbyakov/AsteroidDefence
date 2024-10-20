@@ -1,3 +1,4 @@
+const SCORE_TEXT_SHADOW = 4;
 const SCORE_TEXT_SIZE = 64;
 const SCORE_TEXT_LENGTH = 200;
 
@@ -16,9 +17,14 @@ class RendererScore {
     render() {
         if (this._active) {
             textSize(SCORE_TEXT_SIZE);
-            fill("green");
             textStyle(BOLD);
 
+            fill("red");
+            text("[" + this._score + "]", width - SCORE_TEXT_LENGTH - SCORE_TEXT_SHADOW, SCORE_TEXT_SIZE);
+            text("[" + this._score + "]", width - SCORE_TEXT_LENGTH + SCORE_TEXT_SHADOW, SCORE_TEXT_SIZE);
+            text("[" + this._score + "]", width - SCORE_TEXT_LENGTH, SCORE_TEXT_SIZE - SCORE_TEXT_SHADOW);
+            text("[" + this._score + "]", width - SCORE_TEXT_LENGTH, SCORE_TEXT_SIZE + SCORE_TEXT_SHADOW);
+            fill("green");
             text("[" + this._score + "]", width - SCORE_TEXT_LENGTH, SCORE_TEXT_SIZE);
         }
     }

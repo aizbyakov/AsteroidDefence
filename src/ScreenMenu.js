@@ -1,10 +1,8 @@
 class ScreenMenu {
     constructor(doStartGame = () => {}) {
-        this._baseImageSet = (loaderImage == loaderImageBase);
-
         this._doStartGame = doStartGame;
 
-        this._doChangeGraphics();
+        this._initRenderers();
 
         this._initInputController();
 
@@ -28,15 +26,11 @@ class ScreenMenu {
         } else {
             this._isButtonPressed = false;
         }
-
-
-        this._rendererBaseImageSet.active = !this._baseImageSet;
-        this._rendererApplegrapeImageSet.active = this._baseImageSet;
     }
 
     _initInputController() {
         inputController.buttonStartGameRect = this._rendererBtnStart;
-        inputController.buttonChangeGraphicsRect = this._rendererBaseImageSet;
+        inputController.buttonChangeGraphicsRect = this._rendererImageSet;
         inputController.buttonLDRect = null;
         inputController.buttonLURect = null;
         inputController.buttonRURect = null;
@@ -57,16 +51,17 @@ class ScreenMenu {
     }
 
     _doChangeGraphics() {
-        this._baseImageSet = !this._baseImageSet;
-        loaderImage = (this._baseImageSet ? loaderImageBase : loaderImageApplegrape);
+        if (loaderImage == loaderImageBase)
+            loaderImage = loaderImageApplegrape;
+        else
+            loaderImage = loaderImageBase;
 
         this._initRenderers();
     }
 
     render() {
         this._rendererBackground.render();
-        this._rendererBaseImageSet.render();
-        this._rendererApplegrapeImageSet.render();
+        this._rendererImageSet.render();
         this._rendererBtnStart.render();
     }
 
@@ -78,7 +73,6 @@ class ScreenMenu {
 
         this._rendererBtnStart = new RendererImage(btnX, btnY, loaderImage.btnEngage, true);
 
-        this._rendererBaseImageSet = new RendererImage(0, 0, loaderImageBase.ship, true);
-        this._rendererApplegrapeImageSet = new RendererImage(0, 0, loaderImageApplegrape.ship, true);
+        this._rendererImageSet = new RendererImage(0, 0, (loaderImage == loaderImageBase ? loaderImageApplegrape : loaderImageBase).ship, true);
     }
 }
