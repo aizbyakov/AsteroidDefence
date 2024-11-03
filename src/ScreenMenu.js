@@ -51,10 +51,15 @@ class ScreenMenu {
     }
 
     _doChangeGraphics() {
-        if (loaderImage == loaderImageBase)
+        if (loaderImage == loaderImageBase) {
             loaderImage = loaderImageApplegrape;
-        else
+            graphicSet = GraphicSet.APPLEGRAPE;
+        } else {
             loaderImage = loaderImageBase;
+            graphicSet = GraphicSet.DEFAULT;
+        }
+
+        saveScoreToCookies();
 
         this._initRenderers();
     }

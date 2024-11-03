@@ -6,6 +6,12 @@ let updateFPSCountsMills = 0;
 
 const COOKIE_NAME__TOP_SCORE = "ansteroid_defence__top_score";
 const COOKIE_NAME__LAST_SCORE = "ansteroid_defence__last_score";
+const COOKIE_NAME__GRAPHIC_SET = "ansteroid_defence__graphic_set";
+
+const GraphicSet = {
+	DEFAULT: "base",
+	APPLEGRAPE: "applegrape"
+}
 
 let previousMills = 0;
 let rendersCount = 0;
@@ -28,6 +34,7 @@ let screenUpdatePassCount = 0;
 
 let topScore = null;
 let lastScore = null;
+let graphicSet = GraphicSet.DEFAULT;
 
 
 function preload() {
@@ -38,7 +45,7 @@ function preload() {
     loaderImageApplegrape = new LoaderImageApplegrape();
     loaderImageApplegrape.load();
 
-    loaderImage = loaderImageBase;
+    loaderImage = (GraphicSet.APPLEGRAPE == graphicSet) ? loaderImageApplegrape : loaderImageBase;
 
     loaderSound = new LoaderSound();
     loaderSound.load();
@@ -107,9 +114,11 @@ function showScreenGame() {
 function saveScoreToCookies() {
     setCookie(COOKIE_NAME__LAST_SCORE, lastScore, 365);
     setCookie(COOKIE_NAME__TOP_SCORE, topScore, 365);
+    setCookie(COOKIE_NAME__GRAPHIC_SET, graphicSet, 265)
 }
 
 function restoreScoreFromCookies() {
     lastScore = getCookie(COOKIE_NAME__LAST_SCORE);
     topScore = getCookie(COOKIE_NAME__TOP_SCORE);
+    graphicSet = getCookie(COOKIE_NAME__GRAPHIC_SET);
 }
