@@ -84,6 +84,8 @@ class ScreenGame {
      
         if (topScore == null || topScore < lastScore)
             topScore = lastScore;
+
+        saveScoreToCookies();
     }
 
     render() {

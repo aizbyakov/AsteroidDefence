@@ -4,6 +4,9 @@ let updatePeriodMills = 0;
 const UPDATE_FPS_COUNTS_MILLS = 1000;
 let updateFPSCountsMills = 0;
 
+const COOKIE_NAME__TOP_SCORE = "ansteroid_defence__top_score";
+const COOKIE_NAME__LAST_SCORE = "ansteroid_defence__last_score";
+
 let previousMills = 0;
 let rendersCount = 0;
 let updatesCount = 0;
@@ -99,4 +102,14 @@ function showScreenGame() {
     screenUpdatePassCount = UPDATE_FPS_COUNTS_MILLS / UPDATE_PERIOD_MILLS;
 
     screen = new ScreenGame(1000 / UPDATE_PERIOD_MILLS, showScreenMenu);
+}
+
+function saveScoreToCookies() {
+    setCookie(COOKIE_NAME__LAST_SCORE, lastScore, 365);
+    setCookie(COOKIE_NAME__TOP_SCORE, topScore, 365);
+}
+
+function restoreScoreFromCookies() {
+    lastScore = getCookie(COOKIE_NAME__LAST_SCORE);
+    topScore = getCookie(COOKIE_NAME__TOP_SCORE);
 }
