@@ -3,6 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
+    <!-- possible content values: default, black or black-translucent -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+
+    <link rel="manifest" href="manifest.json" />
 
     <title>Sketch</title>
 
@@ -66,6 +74,13 @@
 
       restoreScoreFromCookies();
 
+      document.addEventListener("DOMContentLoaded", event => {
+        // we can move only if we are not in a browser's tab
+        let isBrowser = matchMedia("(display-mode: browser)").matches;
+        if (!isBrowser) {
+          window.resizeTo(1280, 720);
+      }
+});
     </script>
 
   </head>

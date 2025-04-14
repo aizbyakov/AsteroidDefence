@@ -1,0 +1,33 @@
+{
+  "short_name": "Asteroid Defence",
+  "name": "Asteroid Defence",
+  "icons": [
+    {
+      "src": "/icons/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [    
+    {
+      "src": "assets/image/applegrape/menu_background.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Application",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/image/applegrape/menu_background.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "Application",
+      "purpose": "any"
+    }
+  ],
+  "start_url": "/?standalone=true",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
