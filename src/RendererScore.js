@@ -4,9 +4,11 @@ const SCORE_TEXT_LENGTH = 200;
 
 
 class RendererScore {
-  constructor(active = false) {
+  constructor(x, y, active = false) {
     	this._score = 0;
     
+        this._x = x;
+        this._y = y;
     	this._active = active;
   	}
   
@@ -20,15 +22,23 @@ class RendererScore {
             textStyle(BOLD);
 
             fill("red");
-            text("[" + this._score + "]", width - SCORE_TEXT_LENGTH - SCORE_TEXT_SHADOW, SCORE_TEXT_SIZE);
-            text("[" + this._score + "]", width - SCORE_TEXT_LENGTH + SCORE_TEXT_SHADOW, SCORE_TEXT_SIZE);
-            text("[" + this._score + "]", width - SCORE_TEXT_LENGTH, SCORE_TEXT_SIZE - SCORE_TEXT_SHADOW);
-            text("[" + this._score + "]", width - SCORE_TEXT_LENGTH, SCORE_TEXT_SIZE + SCORE_TEXT_SHADOW);
+            text("[" + this._score + "]", this._x - SCORE_TEXT_SHADOW, this._y);
+            text("[" + this._score + "]", this._x + SCORE_TEXT_SHADOW, this._y);
+            text("[" + this._score + "]", this._x, this._y - SCORE_TEXT_SHADOW);
+            text("[" + this._score + "]", this._x, this._y + SCORE_TEXT_SHADOW);
             fill("green");
-            text("[" + this._score + "]", width - SCORE_TEXT_LENGTH, SCORE_TEXT_SIZE);
+            text("[" + this._score + "]", this._x, this._y);
         }
     }
     
+    get x() {
+        return this._x;
+    }
+
+    get y() {
+        return this._y;
+    }
+
     get active() {
         return this._active;
     }

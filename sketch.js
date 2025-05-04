@@ -36,6 +36,7 @@ let topScore = null;
 let lastScore = null;
 let graphicSet = GraphicSet.DEFAULT;
 
+let scaleFactor = 1;
 
 function preload() {
     inputController = new InputController();
@@ -54,12 +55,31 @@ function preload() {
 function setup() {
     createCanvas(loaderImage.space.width, loaderImage.space.height);
 
+    setScale();
+
     rendererFPS = new RendererFPS(true);
 
     showScreenMenu();
 }
 
+function setScale() {
+    let dx = windowWidth / loaderImage.space.width;
+    let dy = windowHeight / loaderImage.space.height;
+
+    scaleFactor = Math.min(dx, dy);
+
+    resizeCanvas(windowWidth, windowHeight);
+}
+
+function windowResized() {
+    setScale();
+
+    screen.setupInputController();
+}
+
 function draw() {
+    scale(scaleFactor);
+
     //calculate elapsed periods
     let currentMills = millis();
     let elapsedMills = currentMills - previousMills;

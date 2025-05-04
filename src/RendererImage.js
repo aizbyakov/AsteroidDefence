@@ -31,9 +31,4 @@ class RendererImage {
     set active(value) {
         this._active = value;
     }
-
-    isCoodsWithin(x, y) {
-        return (x > this._x) && (x < (this._x + this._img.width))
-            && (y > this._y) && (y < (this._y + this._img.height))
-    }
 }

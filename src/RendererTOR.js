@@ -19,12 +19,12 @@ class RendererTOR {
 
             if (topScore != null) {
                 this._drawText("Top", this._baseX, this._baseY);
-                this._drawText(topScore, this._baseX + (TOR_TEXT_SHADOW * 10), this._baseY + (TOR_TEXT_SIZE * 1));
+                this._drawText(topScore, this._baseX + (TOR_TEXT_SHADOW * 10), this._baseY + (TOR_TEXT_SIZE * 1) + (TOR_TEXT_SHADOW * 2));
             }
 
             if (lastScore != null) {
                 this._drawText("Last", this._baseX, this._baseY + (TOR_TEXT_SIZE * 3));
-                this._drawText(lastScore, this._baseX + (TOR_TEXT_SHADOW * 10), this._baseY + (TOR_TEXT_SIZE * 4));
+                this._drawText(lastScore, this._baseX + (TOR_TEXT_SHADOW * 10), this._baseY + (TOR_TEXT_SIZE * 4) + (TOR_TEXT_SHADOW * 2));
             }
         }
     }

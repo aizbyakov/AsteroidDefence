@@ -4,7 +4,7 @@ class ScreenMenu {
 
         this._initRenderers();
 
-        this._initInputController();
+        this.setupInputController();
 
         this._isClick = false;
         this._isClickPrev = false;
@@ -28,9 +28,21 @@ class ScreenMenu {
         }
     }
 
-    _initInputController() {
-        inputController.buttonStartGameRect = this._rendererBtnStart;
-        inputController.buttonChangeGraphicsRect = this._rendererImageSet;
+    setupInputController() {
+        inputController.buttonStartGameRect = new Box(
+            (this._rendererBtnStart.x * scaleFactor),
+            (this._rendererBtnStart.y * scaleFactor),
+            ((this._rendererBtnStart.x + this._rendererBtnStart.img.width) * scaleFactor),
+            ((this._rendererBtnStart.y + this._rendererBtnStart.img.height) * scaleFactor)
+        );
+
+        inputController.buttonChangeGraphicsRect = new Box(
+            (this._rendererImageSet.x * scaleFactor),
+            (this._rendererImageSet.y * scaleFactor),
+            ((this._rendererImageSet.x + this._rendererImageSet.img.width) * scaleFactor),
+            ((this._rendererImageSet.y + this._rendererImageSet.img.height) * scaleFactor)
+        );
+
         inputController.buttonLDRect = null;
         inputController.buttonLURect = null;
         inputController.buttonRURect = null;
@@ -81,6 +93,6 @@ class ScreenMenu {
 
         this._rendererImageSet = new RendererImage(0, 0, (loaderImage == loaderImageBase ? loaderImageApplegrape : loaderImageBase).ship, true);
         
-        this._TOR = new RendererTOR(width - 150, height - 200, true);
+        this._TOR = new RendererTOR(loaderImage.menuBackground.width - 150, loaderImage.menuBackground.height - 200, true);
     }
 }

@@ -101,7 +101,6 @@ class InputController {
         this._buttonRDRect = rect;
     }
 
-
     get startGame() {
         return this._startGame;
     }
@@ -117,9 +116,11 @@ class InputController {
     get LU() {
         return this._LU;
     }
+
     get RU() {
         return this._RU;
     }
+
     get RD() {
         return this._RD;
     }

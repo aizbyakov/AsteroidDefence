@@ -25,7 +25,7 @@ class ScreenGame {
 
         this._initRenderers();
 
-        this._initInputController();
+        this.setupInputController();
     }
 
     update() {
@@ -35,14 +35,34 @@ class ScreenGame {
             this._updateCompletedGame();
     }
 
-    _initInputController() {
+    setupInputController() {
         inputController.buttonStartGameRect = null;
         inputController.buttonChangeGraphicsRect = null;
         
-        inputController.buttonLDRect = this._rendererButtonLD;
-        inputController.buttonLURect = this._rendererButtonLU;
-        inputController.buttonRURect = this._rendererButtonRU;
-        inputController.buttonRDRect = this._rendererButtonRD;
+        inputController.buttonLDRect = new Box(
+            (this._rendererButtonLD.x * scaleFactor),
+            (this._rendererButtonLD.y * scaleFactor),
+            ((this._rendererButtonLD.x + this._rendererButtonLD.img.width) * scaleFactor),
+            ((this._rendererButtonLD.y + this._rendererButtonLD.img.height) * scaleFactor)
+        );
+        inputController.buttonLURect = new Box(
+            (this._rendererButtonLU.x * scaleFactor),
+            (this._rendererButtonLU.y * scaleFactor),
+            ((this._rendererButtonLU.x + this._rendererButtonLU.img.width) * scaleFactor),
+            ((this._rendererButtonLU.y + this._rendererButtonLU.img.height) * scaleFactor)
+        );
+        inputController.buttonRURect = new Box(
+            (this._rendererButtonRU.x * scaleFactor),
+            (this._rendererButtonRU.y * scaleFactor),
+            ((this._rendererButtonRU.x + this._rendererButtonRU.img.width) * scaleFactor),
+            ((this._rendererButtonRU.y + this._rendererButtonRU.img.height) * scaleFactor)
+        );
+        inputController.buttonRDRect = new Box(
+            (this._rendererButtonRD.x * scaleFactor),
+            (this._rendererButtonRD.y * scaleFactor),
+            ((this._rendererButtonRD.x + this._rendererButtonRD.img.width) * scaleFactor),
+            ((this._rendererButtonRD.y + this._rendererButtonRD.img.height) * scaleFactor)
+        );
     }
 
     _updateRunningGame() {
@@ -115,10 +135,14 @@ class ScreenGame {
 
     _initRenderers() {
         this._rendererBackground = new RendererImage(0, 0, loaderImage.space, true);
-        this._rendererScore = new RendererScore(true);
 
-        let imgX = (width / 2) - (loaderImage.ship.width / 2);
-        let imgY = height - loaderImage.ship.height;
+        let w = loaderImage.space.width;
+        let h = loaderImage.space.height;
+
+        this._rendererScore = new RendererScore(w - SCORE_TEXT_LENGTH, SCORE_TEXT_SIZE, true);
+
+        let imgX = (w / 2) - (loaderImage.ship.width / 2);
+        let imgY = h - loaderImage.ship.height;
         this._rendererShip = new RendererImage(imgX, imgY, loaderImage.ship, true);
 
 
@@ -140,18 +164,18 @@ class ScreenGame {
 
 
         imgX = (loaderImage.buttonLD.width / 2);
-        imgY = height - loaderImage.buttonLD.height - (loaderImage.buttonLD.height / 2);
+        imgY = h - loaderImage.buttonLD.height - (loaderImage.buttonLD.height / 2);
         this._rendererButtonLD = new RendererImage(imgX, imgY, loaderImage.buttonLD, true);
 
         imgX = (loaderImage.buttonLU.width / 2);
         imgY = this._rendererButtonLD.y - loaderImage.buttonLU.height - (loaderImage.buttonLU.height / 2);
         this._rendererButtonLU = new RendererImage(imgX, imgY, loaderImage.buttonLU, true);
 
-        imgX = width - loaderImage.buttonRD.width - (loaderImage.buttonRD.width / 2);
-        imgY = height - loaderImage.buttonRD.height - (loaderImage.buttonRD.height / 2);
+        imgX = w - loaderImage.buttonRD.width - (loaderImage.buttonRD.width / 2);
+        imgY = h - loaderImage.buttonRD.height - (loaderImage.buttonRD.height / 2);
         this._rendererButtonRD = new RendererImage(imgX, imgY, loaderImage.buttonRD, true);
 
-        imgX = width - loaderImage.buttonRU.width - (loaderImage.buttonRU.width / 2);
+        imgX = w - loaderImage.buttonRU.width - (loaderImage.buttonRU.width / 2);
         imgY = this._rendererButtonRD.y - loaderImage.buttonRU.height - (loaderImage.buttonRU.height / 2);
         this._rendererButtonRU = new RendererImage(imgX, imgY, loaderImage.buttonRU, true);
 
